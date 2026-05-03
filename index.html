@@ -3,169 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Taxi - Booking</title>
+    <title>Online Taxi Service</title>
     <style>
         :root {
-            --primary-yellow: #FFC107;
-            --dark-bg: #1a1a1a;
-            --card-bg: #ffffff;
+            --primary: #FFC107;
+            --dark: #121212;
+            --gray: #f5f5f5;
+            --text-gray: #8E8E93;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            margin: 0;
         }
 
-        .phone-container {
+        /* Mobil konteyner */
+        .phone {
             width: 360px;
-            height: 740px;
-            background-color: var(--dark-bg);
-            border-radius: 40px;
+            height: 720px;
+            background: white;
+            border-radius: 35px;
             border: 8px solid #333;
-            overflow: hidden;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* Header */
-        .header {
-            padding: 40px 20px 20px;
-            color: white;
+        .screen {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            animation: fadeIn 0.3s;
         }
-        .header h1 { font-size: 24px; margin: 0; }
-        .header p { color: #aaa; font-size: 14px; margin-top: 5px; }
 
-        /* Search Bar */
-        .search-box {
-            background: #333;
-            margin: 0 20px;
+        .active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 1-EKRAN: ASOSIY */
+        .header { padding: 30px 20px 10px; }
+        .search-bar {
+            background: var(--gray);
+            margin: 15px 20px;
             padding: 12px;
             border-radius: 15px;
-            color: #888;
-            font-size: 14px;
+            color: var(--text-gray);
         }
 
-        /* Categories */
-        .categories {
-            display: flex;
-            gap: 10px;
-            padding: 20px;
-            overflow-x: auto;
-        }
-        .cat-item {
-            background: var(--primary-yellow);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .cat-item.inactive {
-            background: #333;
-            color: white;
-        }
-
-        /* Car Cards */
+        .car-list { flex: 1; overflow-y: auto; padding: 0 20px; }
         .car-card {
-            background: var(--card-bg);
-            margin: 0 20px 20px;
-            border-radius: 25px;
-            padding: 20px;
-            position: relative;
-        }
-        .car-card h3 { margin: 0; font-size: 18px; }
-        .car-card .price { color: #666; font-size: 14px; }
-        .car-img {
-            width: 100%;
-            height: 150px;
-            background: #eee; /* Rasmlar uchun joy */
-            margin: 15px 0;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #999;
-        }
-        .book-btn {
-            background: var(--dark-bg);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 12px;
-            float: right;
-            cursor: pointer;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
         }
 
-        /* Bottom Nav */
-        .bottom-nav {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--dark-bg);
-            width: 80%;
+        /* 2-EKRAN: BRON QILISH */
+        .top-nav { padding: 20px; display: flex; align-items: center; gap: 15px; }
+        .booking-content { padding: 20px; flex: 1; }
+        .info-box {
+            background: var(--gray);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Tugmalar */
+        .btn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .bottom-menu {
+            height: 70px;
+            border-top: 1px solid #eee;
             display: flex;
             justify-content: space-around;
-            padding: 15px;
-            border-radius: 30px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border: 1px solid #444;
+            align-items: center;
+            background: white;
         }
-        .nav-icon {
-            width: 24px;
-            height: 24px;
-            background: #555;
-            border-radius: 50%;
-        }
-        .nav-icon.active { background: var(--primary-yellow); }
 
+        .menu-item { font-size: 20px; cursor: pointer; color: #ccc; }
+        .menu-item.active-icon { color: var(--primary); }
     </style>
 </head>
 <body>
 
-    <div class="phone-container">
+<div class="phone">
+    
+    <!-- 1-EKRAN: HOME -->
+    <div id="home" class="screen active">
         <div class="header">
-            <p>Salom, Martin!</p>
-            <h1>Online Taxi</h1>
+            <p style="margin:0; color:gray">Xush kelibsiz!</p>
+            <h2 style="margin:5px 0">Online Taxi</h2>
         </div>
-
-        <div class="search-box">
-            Qayerga boramiz?
+        <div class="search-bar">🔍 Qayerga boramiz?</div>
+        <div class="car-list">
+            <div class="car-card">
+                <div style="font-size: 40px;">🚕</div>
+                <h4>Taxi Elite (Nexia 3)</h4>
+                <p style="color:gray; font-size:12px">$75/soat • ★ 4.9</p>
+                <button class="btn" onclick="showScreen('booking')" style="padding:8px; margin-top:10px">Tanlash</button>
+            </div>
+            <div class="car-card">
+                <div style="font-size: 40px;">🚗</div>
+                <h4>Business Class</h4>
+                <p style="color:gray; font-size:12px">$120/soat • ★ 5.0</p>
+                <button class="btn" onclick="showScreen('booking')" style="padding:8px; margin-top:10px">Tanlash</button>
+            </div>
         </div>
-
-        <div class="categories">
-            <div class="cat-item">Hammasi</div>
-            <div class="cat-item inactive">Ekonom</div>
-            <div class="cat-item inactive">Komfort</div>
-            <div class="cat-item inactive">Biznes</div>
-        </div>
-
-        <div class="car-card">
-            <h3>Voyage Fusion</h3>
-            <span class="price">$95/soat ★ 4.9</span>
-            <div class="car-img">AVTOMOBIL RASMI</div>
-            <button class="book-btn">Band qilish</button>
-        </div>
-
-        <div class="car-card">
-            <h3>Chevrolet Nexia 3</h3>
-            <span class="price">$75/soat ★ 4.8</span>
-            <div class="car-img">NEXIA 3 RASMI</div>
-            <button class="book-btn">Band qilish</button>
-        </div>
-
-        <div class="bottom-nav">
-            <div class="nav-icon active"></div>
-            <div class="nav-icon"></div>
-            <div class="nav-icon"></div>
-            <div class="nav-icon"></div>
+        <div class="bottom-menu">
+            <div class="menu-item active-icon">🏠</div>
+            <div class="menu-item">🔍</div>
+            <div class="menu-item">🕒</div>
+            <div class="menu-item">👤</div>
         </div>
     </div>
 
+    <!-- 2-EKRAN: BOOKING -->
+    <div id="booking" class="screen">
+        <div class="top-nav">
+            <button onclick="showScreen('home')" style="border:none; background:none; font-size:20px">←</button>
+            <h3 style="margin:0">Zakaz qilish</h3>
+        </div>
+        <div class="booking-content">
+            <center><div style="font-size: 60px;">🚕</div></center>
+            <p><b>Sana va vaqt:</b></p>
+            <div class="info-box">
+                <div>10-May, 2026<br><small>08:30 AM</small></div>
+                <div style="color:orange">O'zgartirish</div>
+            </div>
+            <p><b>Manzil:</b></p>
+            <div class="info-box">
+                <div>Aeroport, Terminal 2</div>
+                <div style="color:orange">📍</div>
+            </div>
+            <div style="margin-top:30px">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px">
+                    <span>Jami summa:</span>
+                    <b>$145.00</b>
+                </div>
+                <button class="btn" onclick="showScreen('payment')">To'lovga o'tish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3-EKRAN: PAYMENT -->
+    <div id="payment" class="screen">
+        <div class="top-nav">
+            <button onclick="showScreen('booking')" style="border:none; background:none; font-size:20px">←</button>
+            <h3 style="margin:0">To'lov</h3>
+        </div>
+        <div style="padding:20px; text-align:center">
+            <div style="font-size: 50px; color: green; margin: 40px 0;">✔</div>
+            <h2>Muvaffaqiyatli!</h2>
+            <p style="color:gray">Haydovchi 5 daqiqada yetib keladi.</p>
+            <div class="info-box" style="text-align:left; margin-top:20px">
+                <div><b>ID:</b> #88291<br><b>Mashina:</b> Nexia 3 (Ko'k)</div>
+            </div>
+            <button class="btn" onclick="showScreen('home')" style="margin-top:30px">Asosiy menyuga qaytish</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        // Hamma ekranlarni yopish
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        // Kerakli ekranni ochish
+        document.getElementById(screenId).classList.add('active');
+    }
+</script>
+
 </body>
-  </html>
+    </html>
