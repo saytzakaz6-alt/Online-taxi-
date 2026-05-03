@@ -1,1 +1,171 @@
-index
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Taxi - Booking</title>
+    <style>
+        :root {
+            --primary-yellow: #FFC107;
+            --dark-bg: #1a1a1a;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 740px;
+            background-color: var(--dark-bg);
+            border-radius: 40px;
+            border: 8px solid #333;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 20px 20px;
+            color: white;
+        }
+        .header h1 { font-size: 24px; margin: 0; }
+        .header p { color: #aaa; font-size: 14px; margin-top: 5px; }
+
+        /* Search Bar */
+        .search-box {
+            background: #333;
+            margin: 0 20px;
+            padding: 12px;
+            border-radius: 15px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .cat-item {
+            background: var(--primary-yellow);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .cat-item.inactive {
+            background: #333;
+            color: white;
+        }
+
+        /* Car Cards */
+        .car-card {
+            background: var(--card-bg);
+            margin: 0 20px 20px;
+            border-radius: 25px;
+            padding: 20px;
+            position: relative;
+        }
+        .car-card h3 { margin: 0; font-size: 18px; }
+        .car-card .price { color: #666; font-size: 14px; }
+        .car-img {
+            width: 100%;
+            height: 150px;
+            background: #eee; /* Rasmlar uchun joy */
+            margin: 15px 0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #999;
+        }
+        .book-btn {
+            background: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 12px;
+            float: right;
+            cursor: pointer;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-bg);
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: #555;
+            border-radius: 50%;
+        }
+        .nav-icon.active { background: var(--primary-yellow); }
+
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <div class="header">
+            <p>Salom, Martin!</p>
+            <h1>Online Taxi</h1>
+        </div>
+
+        <div class="search-box">
+            Qayerga boramiz?
+        </div>
+
+        <div class="categories">
+            <div class="cat-item">Hammasi</div>
+            <div class="cat-item inactive">Ekonom</div>
+            <div class="cat-item inactive">Komfort</div>
+            <div class="cat-item inactive">Biznes</div>
+        </div>
+
+        <div class="car-card">
+            <h3>Voyage Fusion</h3>
+            <span class="price">$95/soat ★ 4.9</span>
+            <div class="car-img">AVTOMOBIL RASMI</div>
+            <button class="book-btn">Band qilish</button>
+        </div>
+
+        <div class="car-card">
+            <h3>Chevrolet Nexia 3</h3>
+            <span class="price">$75/soat ★ 4.8</span>
+            <div class="car-img">NEXIA 3 RASMI</div>
+            <button class="book-btn">Band qilish</button>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-icon active"></div>
+            <div class="nav-icon"></div>
+            <div class="nav-icon"></div>
+            <div class="nav-icon"></div>
+        </div>
+    </div>
+
+</body>
+  </html>
